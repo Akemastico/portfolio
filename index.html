@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio de Nadil 'Akemistico' Nunes — programador Python e desenvolvedor web." />
+  <title>~/akemistico — portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Fundo: blobs desfocados com as cores da paleta -->
+  <div class="backdrop" aria-hidden="true">
+    <span class="blob blob--green"></span>
+    <span class="blob blob--peach"></span>
+    <span class="blob blob--pink"></span>
+    <span class="blob blob--purple"></span>
+    <span class="blob blob--indigo"></span>
+  </div>
+
+  <main class="desktop">
+    <header class="desktop__bar">
+      <span class="desktop__host">niri@akemistico</span>
+      <span class="desktop__clock" id="clock">--:--</span>
+    </header>
+
+    <section class="grid" aria-label="Janelas do portfolio">
+
+      <!-- 1. Quem eu sou -->
+      <article class="window window--green" data-accent="green" tabindex="0">
+        <header class="window__bar">
+          <span class="dot dot--close"></span>
+          <span class="dot dot--min"></span>
+          <span class="dot dot--max"></span>
+          <span class="window__title">~ quem-eu-sou</span>
+        </header>
+        <div class="window__body">
+          <p class="line line--accent"><span class="prompt">➜</span> <span class="cmd">whoami</span></p>
+          <p class="line">nadil nunes da silva junior</p>
+          <p class="line line--muted">aka <span class="hl">akemistico</span></p>
+          <p class="line line--accent"><span class="prompt">➜</span> <span class="cmd">cat ./bio.txt</span></p>
+          <p class="line">programador python.</p>
+          <p class="line">estudante curioso que ama desenvolvimento web e otimização de processos.</p>
+        </div>
+      </article>
+
+      <!-- 2. O que eu faço -->
+      <article class="window window--peach" data-accent="peach" tabindex="0">
+        <header class="window__bar">
+          <span class="dot dot--close"></span>
+          <span class="dot dot--min"></span>
+          <span class="dot dot--max"></span>
+          <span class="window__title">~ o-que-eu-faco</span>
+        </header>
+        <div class="window__body">
+          <p class="line line--accent"><span class="prompt">➜</span> <span class="cmd">./stack --list</span></p>
+          <ul class="stack">
+            <li>python</li>
+            <li>c++</li>
+            <li>ruby</li>
+            <li>postgresql</li>
+            <li>ollama</li>
+          </ul>
+          <p class="line line--accent"><span class="prompt">➜</span> <span class="cmd">./frameworks --list</span></p>
+          <ul class="stack">
+            <li>django ninja</li>
+            <li>fastapi</li>
+            <li>ruby on rails</li>
+            <li>game dev</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 3. Projetos -->
+      <article class="window window--pink" data-accent="pink" tabindex="0">
+        <header class="window__bar">
+          <span class="dot dot--close"></span>
+          <span class="dot dot--min"></span>
+          <span class="dot dot--max"></span>
+          <span class="window__title">~ projetos</span>
+        </header>
+        <div class="window__body">
+          <p class="line line--accent"><span class="prompt">➜</span> <span class="cmd">ls ./projects</span></p>
+          <p class="line line--muted">em construção... <span class="cursor">▌</span></p>
+          <p class="line">os projetos em destaque aparecerão aqui.</p>
+          <a class="line link" href="https://github.com/Akemastico" target="_blank" rel="noopener">
+            <span class="prompt">➜</span> github.com/Akemastico <span class="arrow">↗</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- 4. Contato -->
+      <article class="window window--purple" data-accent="purple" tabindex="0">
+        <header class="window__bar">
+          <span class="dot dot--close"></span>
+          <span class="dot dot--min"></span>
+          <span class="dot dot--max"></span>
+          <span class="window__title">~ contato</span>
+        </header>
+        <div class="window__body">
+          <p class="line line--accent"><span class="prompt">➜</span> <span class="cmd">./contato --list</span></p>
+          <a class="line link" href="https://github.com/Akemastico" target="_blank" rel="noopener">
+            <span class="prompt">gh</span> github.com/Akemastico <span class="arrow">↗</span>
+          </a>
+          <a class="line link" href="mailto:akemisticosim@gmail.com">
+            <span class="prompt">@</span> akemisticosim@gmail.com <span class="arrow">↗</span>
+          </a>
+          <p class="line"><span class="prompt">discord</span> Akemistico</p>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="desktop__foot">
+      <span>niri · wayland · terminal</span>
+      <span>akemistico © 2026</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
