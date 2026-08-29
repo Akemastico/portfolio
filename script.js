@@ -20,11 +20,14 @@
 
   // Animação de entrada em stagger
   const windows = Array.from(document.querySelectorAll(".window"));
+  const intro = document.getElementById("intro");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (reduceMotion) {
-    windows.forEach((w) => w.classList.add("is-in"));
-  } else {
+  function revealWindows() {
+    if (reduceMotion) {
+      windows.forEach((w) => w.classList.add("is-in"));
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -39,5 +42,21 @@
       { threshold: 0.15 }
     );
     windows.forEach((w) => io.observe(w));
+  }
+
+  if (intro) {
+    const enter = () => {
+      intro.classList.add("is-hidden");
+      revealWindows();
+    };
+    intro.addEventListener("click", enter);
+    intro.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        enter();
+      }
+    });
+  } else {
+    revealWindows();
   }
 })();

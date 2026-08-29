@@ -20,6 +20,7 @@
   --text:      #ece8f4;
   --muted:     #9b93ad;
   --mono:      "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --game:      "Press Start 2P", var(--mono);
   --radius:    14px;
 }
 
@@ -39,6 +40,73 @@ body {
   color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------
+   Intro (tela de entrada com nome em gradiente)
+   ------------------------------------------------------------ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  cursor: pointer;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.intro.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro__inner {
+  text-align: center;
+  padding: 0 20px;
+}
+
+.intro__name {
+  font-family: var(--game);
+  font-size: clamp(1.6rem, 7vw, 4.2rem);
+  line-height: 1.3;
+  letter-spacing: 2px;
+  background: linear-gradient(270deg,
+    var(--green), var(--indigo), var(--pink), var(--peach), var(--green));
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientShift 18s ease infinite;
+}
+
+.intro__sub {
+  margin-top: 18px;
+  font-family: var(--mono);
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.intro__cta {
+  margin-top: 34px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  letter-spacing: 1px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1; }
 }
 
 /* ------------------------------------------------------------
@@ -261,4 +329,5 @@ body {
   .blob { animation: none; }
   .window { opacity: 1; transform: none; animation: none; }
   .cursor { animation: none; }
+  .intro__name, .intro__cta { animation: none; }
 }
