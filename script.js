@@ -47,7 +47,8 @@
   if (intro) {
     let entered = false;
     let armed = false;
-    const EDGE = 12; // px de sensibilidade nas laterais
+    const EDGE = 12;   // px que disparam o retorno ao menu
+    const GLOW = 110;  // px que acionam o brilho lateral
 
     const enter = () => {
       intro.classList.add("is-hidden");
@@ -59,6 +60,7 @@
     const backToMenu = () => {
       if (!entered) return;
       intro.classList.remove("is-hidden");
+      document.body.classList.remove("near-left", "near-right");
       entered = false;
       armed = false;
     };
@@ -73,6 +75,11 @@
 
     // Ao mover o mouse até uma das laterais, volta ao menu inicial
     window.addEventListener("mousemove", (e) => {
+      const nearLeft = e.clientX <= GLOW;
+      const nearRight = e.clientX >= window.innerWidth - GLOW;
+      document.body.classList.toggle("near-left", entered && nearLeft);
+      document.body.classList.toggle("near-right", entered && nearRight);
+
       if (!entered) return;
       const atEdge =
         e.clientX <= EDGE || e.clientX >= window.innerWidth - EDGE;

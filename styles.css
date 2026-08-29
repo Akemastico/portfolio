@@ -137,6 +137,32 @@ body {
 }
 
 /* ------------------------------------------------------------
+   Brilho nas laterais (indicador de retorno ao menu)
+   ------------------------------------------------------------ */
+.edge {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 150px;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.edge--left {
+  left: 0;
+  background: linear-gradient(90deg, rgba(99, 174, 133, 0.32), transparent);
+}
+.edge--right {
+  right: 0;
+  background: linear-gradient(270deg, rgba(80, 5, 232, 0.32), transparent);
+}
+body.near-left .edge--left,
+body.near-right .edge--right {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------
    Área do "desktop"
    ------------------------------------------------------------ */
 .desktop {
