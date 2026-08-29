@@ -149,6 +149,15 @@ body {
   margin: 0 auto;
 }
 
+/* Em telas largas, os terminais preenchem a tela deixando ~150px de borda lateral */
+@media (min-width: 1024px) {
+  .desktop {
+    max-width: calc(100vw - 300px);
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .desktop__bar,
 .desktop__foot {
   display: flex;
