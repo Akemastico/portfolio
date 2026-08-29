@@ -52,9 +52,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg);
   cursor: pointer;
+  overflow: hidden;
   transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: url("bg.jpeg") center/cover no-repeat;
+  filter: blur(26px) brightness(0.55);
+  z-index: -1;
 }
 .intro.is-hidden {
   opacity: 0;
@@ -110,35 +118,22 @@ body {
 }
 
 /* ------------------------------------------------------------
-   Fundo animado (blobs desfocados)
+   Fundo (imagem com overlay escuro p/ legibilidade)
    ------------------------------------------------------------ */
 .backdrop {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(120% 100% at 50% 0%, var(--bg-2) 0%, var(--bg) 60%);
-  overflow: hidden;
+  background: url("bg.jpeg") center/cover no-repeat;
 }
-
-.blob {
+.backdrop::after {
+  content: "";
   position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.55;
-  mix-blend-mode: screen;
-  will-change: transform;
-  animation: drift var(--dur, 28s) ease-in-out infinite alternate;
-}
-
-.blob--green  { width: 46vmax; height: 46vmax; top: -12%; left: -10%;  background: var(--green);  --dur: 30s; }
-.blob--peach  { width: 40vmax; height: 40vmax; top: -8%;  right: -12%;  background: var(--peach);  --dur: 26s; }
-.blob--pink   { width: 42vmax; height: 42vmax; bottom: -14%; left: 6%;  background: var(--pink);   --dur: 34s; }
-.blob--purple { width: 44vmax; height: 44vmax; bottom: -10%; right: -6%; background: var(--purple); --dur: 32s; }
-.blob--indigo { width: 50vmax; height: 50vmax; top: 30%; left: 28%; background: var(--indigo); --dur: 40s; opacity: 0.4; }
-
-@keyframes drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(6%, -8%, 0) scale(1.15); }
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(11, 9, 20, 0.62) 0%,
+    rgba(11, 9, 20, 0.38) 45%,
+    rgba(11, 9, 20, 0.66) 100%);
 }
 
 /* ------------------------------------------------------------
@@ -321,12 +316,10 @@ body {
 @media (max-width: 768px) {
   .grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .window__body { font-size: 13px; }
-  .blob { filter: blur(70px); }
 }
 
 /* Acessibilidade: reduzir movimento */
 @media (prefers-reduced-motion: reduce) {
-  .blob { animation: none; }
   .window { opacity: 1; transform: none; animation: none; }
   .cursor { animation: none; }
   .intro__name, .intro__cta { animation: none; }
