@@ -45,15 +45,42 @@
   }
 
   if (intro) {
+    let entered = false;
+    let armed = false;
+    const EDGE = 12; // px de sensibilidade nas laterais
+
     const enter = () => {
       intro.classList.add("is-hidden");
+      entered = true;
+      armed = false;
       revealWindows();
     };
+
+    const backToMenu = () => {
+      if (!entered) return;
+      intro.classList.remove("is-hidden");
+      entered = false;
+      armed = false;
+    };
+
     intro.addEventListener("click", enter);
     intro.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         enter();
+      }
+    });
+
+    // Ao mover o mouse até uma das laterais, volta ao menu inicial
+    window.addEventListener("mousemove", (e) => {
+      if (!entered) return;
+      const atEdge =
+        e.clientX <= EDGE || e.clientX >= window.innerWidth - EDGE;
+
+      if (atEdge) {
+        if (armed) backToMenu();
+      } else {
+        armed = true;
       }
     });
   } else {
