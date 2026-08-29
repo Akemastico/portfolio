@@ -338,21 +338,26 @@ body.near-bottom .edge--bottom {
 }
 
 /* ------------------------------------------------------------
-   Animação de entrada (stagger)
+   Animação de entrada (stagger) — glide + stretch (estilo KDE)
    ------------------------------------------------------------ */
 .window {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(48px) scaleY(1.06);
 }
 .window.is-in {
-  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 1;
+  transform: none;
+  transform-origin: center bottom;
+  animation: glideStretch 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 .window.is-in:hover,
 .window.is-in:focus-within {
-  transform: translateY(-6px);
+  transform: translateY(-6px) scaleY(1);
 }
-@keyframes rise {
-  to { opacity: 1; transform: translateY(0); }
+@keyframes glideStretch {
+  0%   { opacity: 0; transform: translateY(64px) scaleY(1.1); }
+  55%  { opacity: 1; transform: translateY(-7px) scaleY(0.98); }
+  100% { opacity: 1; transform: translateY(0) scaleY(1); }
 }
 
 /* ------------------------------------------------------------
@@ -365,7 +370,7 @@ body.near-bottom .edge--bottom {
 
 /* Acessibilidade: reduzir movimento */
 @media (prefers-reduced-motion: reduce) {
-  .window { opacity: 1; transform: none; animation: none; }
+  .window, .window.is-in { opacity: 1; transform: none; animation: none; }
   .cursor { animation: none; }
   .intro__name, .intro__cta { animation: none; }
 }
