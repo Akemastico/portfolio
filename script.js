@@ -47,11 +47,15 @@
   if (intro) {
     let entered = false;
     let armed = false;
-    const EDGE = 12;   // px que disparam o retorno ao menu
-    const GLOW = 110;  // px que acionam o brilho lateral
+    const EDGE = 12;           // px que disparam o retorno ao menu (laterais)
+    const GLOW = 110;          // px que acionam o brilho lateral
+    const BOTTOM_ENTER = 60;   // px da base que abrem o terminal
+    const BOTTOM_GLOW = 140;   // px da base que acionam o brilho inferior
 
     const enter = () => {
+      if (entered) return;
       intro.classList.add("is-hidden");
+      document.body.classList.remove("near-bottom");
       entered = true;
       armed = false;
       revealWindows();
@@ -65,7 +69,6 @@
       armed = false;
     };
 
-    intro.addEventListener("click", enter);
     intro.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -73,17 +76,24 @@
       }
     });
 
-    // Ao mover o mouse até uma das laterais, volta ao menu inicial
     window.addEventListener("mousemove", (e) => {
       const nearLeft = e.clientX <= GLOW;
       const nearRight = e.clientX >= window.innerWidth - GLOW;
+      const nearBottom = e.clientY >= window.innerHeight - BOTTOM_GLOW;
+
       document.body.classList.toggle("near-left", entered && nearLeft);
       document.body.classList.toggle("near-right", entered && nearRight);
+      document.body.classList.toggle("near-bottom", !entered && nearBottom);
 
-      if (!entered) return;
+      // Deslizar na base da tela abre o terminal
+      if (!entered) {
+        if (e.clientY >= window.innerHeight - BOTTOM_ENTER) enter();
+        return;
+      }
+
+      // Ao mover o mouse até uma das laterais, volta ao menu inicial
       const atEdge =
         e.clientX <= EDGE || e.clientX >= window.innerWidth - EDGE;
-
       if (atEdge) {
         if (armed) backToMenu();
       } else {
