@@ -126,4 +126,19 @@
   } else {
     revealWindows();
   }
+
+  // Timer de ociosidade: após 3s sem interação, suaviza a intro
+  const IDLE_DELAY = 3000;
+  let idleTimer = null;
+  function resetIdle() {
+    if (intro) intro.classList.remove("is-idle");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      if (intro) intro.classList.add("is-idle");
+    }, IDLE_DELAY);
+  }
+  ["mousemove", "mousedown", "keydown", "touchstart", "wheel"].forEach((evt) =>
+    window.addEventListener(evt, resetIdle, { passive: true })
+  );
+  resetIdle();
 })();
