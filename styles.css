@@ -259,10 +259,14 @@ body.near-bottom .edge--bottom {
   color: var(--muted);
   text-decoration: none;
   letter-spacing: 0.5px;
-  transition: color 0.15s ease;
+  padding: 6px 12px;
+  margin: -6px -12px;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 .menu a:hover {
   color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* ------------------------------------------------------------
