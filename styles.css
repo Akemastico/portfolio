@@ -67,7 +67,7 @@ body {
   background: url("bg.jpeg") center/cover no-repeat;
   filter: blur(3px) brightness(0.96);
   z-index: -1;
-  transition: filter 4s ease-in-out;
+  transition: filter 1.8s ease-in-out;
 }
 .intro.is-idle::before {
   filter: blur(0px) brightness(1);
@@ -86,7 +86,7 @@ body {
   background-color: rgba(11, 9, 20, 0.03);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: background-color 4s ease-in-out;
+  transition: background-color 1.8s ease-in-out;
 }
 .intro.is-idle .intro__inner {
   background-color: rgba(11, 9, 20, 0);
