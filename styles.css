@@ -86,10 +86,19 @@ body {
   background-color: rgba(11, 9, 20, 0.03);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: background-color 1.8s ease-in-out;
+  transition: background-color 1.8s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .intro.is-idle .intro__inner {
   background-color: rgba(11, 9, 20, 0);
+}
+.intro:hover .intro__inner,
+.intro:focus-visible .intro__inner {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4);
+}
+.intro:active .intro__inner {
+  transform: translateY(-1px) scale(0.98);
 }
 
 .intro__name {
@@ -104,6 +113,11 @@ body {
   background-clip: text;
   color: transparent;
   animation: gradientShift 18s ease infinite;
+  transition: transform 0.3s ease;
+}
+.intro:hover .intro__name,
+.intro:focus-visible .intro__name {
+  transform: translateY(-6px);
 }
 
 .intro__sub {
