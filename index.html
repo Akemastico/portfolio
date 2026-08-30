@@ -11,6 +11,18 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Filtro SVG: efeito de onda lento no fundo -->
+  <svg class="wave-filter" aria-hidden="true">
+    <defs>
+      <filter id="wave">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="noise">
+          <animate attributeName="baseFrequency" dur="26s" values="0.012 0.018;0.022 0.03;0.012 0.018" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
   <!-- Fundo: imagem com overlay -->
   <div class="backdrop" aria-hidden="true"></div>
 

@@ -129,6 +129,9 @@ body {
   inset: 0;
   z-index: -1;
   background: url("bg.jpeg") center/cover no-repeat;
+  transform: scale(1.08);
+  transform-origin: center;
+  filter: url(#wave);
 }
 .backdrop::after {
   content: "";
@@ -273,6 +276,13 @@ body.near-bottom .edge--bottom {
   box-shadow: 0 0 0 1px var(--accent), 0 18px 46px rgba(0, 0, 0, 0.55);
 }
 
+.wave-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 /* Barra de título */
 .window__bar {
   display: flex;
@@ -386,6 +396,7 @@ body.near-bottom .edge--bottom {
 /* Acessibilidade: reduzir movimento */
 @media (prefers-reduced-motion: reduce) {
   .window, .window.is-in { opacity: 1; transform: none; animation: none; }
+  .backdrop { filter: none; transform: none; }
   .cursor { animation: none; }
   .intro__name, .intro__cta { animation: none; }
 }
