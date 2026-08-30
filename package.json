@@ -1,0 +1,23 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio pessoal — Nadil 'Akemistico' Nunes. Site estilo terminal/Niri.",
+  "main": "script.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akemastico/portfolio.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Akemastico/portfolio/issues"
+  },
+  "homepage": "https://github.com/Akemastico/portfolio#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}
