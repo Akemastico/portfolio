@@ -81,6 +81,7 @@
       armed = false;
     };
 
+    intro.addEventListener("click", enter);
     intro.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
