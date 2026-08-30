@@ -65,7 +65,7 @@ body {
   position: absolute;
   inset: -40px;
   background: url("bg.jpeg") center/cover no-repeat;
-  filter: blur(6px) brightness(0.85);
+  filter: blur(2px) brightness(0.95);
   z-index: -1;
 }
 .intro.is-hidden {
