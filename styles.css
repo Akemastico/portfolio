@@ -65,7 +65,7 @@ body {
   position: absolute;
   inset: -40px;
   background: url("bg.jpeg") center/cover no-repeat;
-  filter: brightness(0.95);
+  filter: blur(3px) brightness(0.96);
   z-index: -1;
 }
 .intro.is-hidden {
@@ -76,7 +76,12 @@ body {
 
 .intro__inner {
   text-align: center;
-  padding: 0 20px;
+  padding: 36px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  background: rgba(11, 9, 20, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .intro__name {
