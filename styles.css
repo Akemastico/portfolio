@@ -14,8 +14,8 @@
   /* Base escura */
   --bg:        #0b0914;
   --bg-2:      #12101e;
-  --glass:     rgba(18, 16, 30, 0.55);
-  --glass-strong: rgba(18, 16, 30, 0.72);
+  --glass:     rgba(15, 13, 26, 0.34);
+  --glass-strong: rgba(15, 13, 26, 0.5);
   --stroke:    rgba(255, 255, 255, 0.08);
   --text:      #ece8f4;
   --muted:     #9b93ad;
@@ -32,6 +32,10 @@
 
 html, body {
   height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -206,6 +210,22 @@ body.near-bottom .edge--bottom {
 .desktop__host { color: var(--text); }
 .desktop__host::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 8px; box-shadow: 0 0 10px var(--green); }
 
+/* Menu superior */
+.menu {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+}
+.menu a {
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.15s ease;
+}
+.menu a:hover {
+  color: var(--text);
+}
+
 /* ------------------------------------------------------------
    Grid 2x2
    ------------------------------------------------------------ */
@@ -231,6 +251,7 @@ body.near-bottom .edge--bottom {
   border-radius: var(--radius);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
   overflow: hidden;
+  scroll-margin-top: 90px;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
@@ -247,28 +268,22 @@ body.near-bottom .edge--bottom {
 .window[data-accent="pink"]   { --accent: var(--pink); }
 .window[data-accent="purple"] { --accent: var(--purple); }
 
+.window--flash {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 18px 46px rgba(0, 0, 0, 0.55);
+}
+
 /* Barra de título */
 .window__bar {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 10px 12px;
+  justify-content: center;
+  padding: 9px 12px;
   background: var(--glass-strong);
   border-bottom: 1px solid var(--stroke);
 }
 
-.dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  opacity: 0.85;
-}
-.dot--close { background: #ff5f56; }
-.dot--min   { background: #ffbd2e; }
-.dot--max   { background: #27c93f; }
-
 .window__title {
-  margin-left: 8px;
   font-size: 12px;
   color: var(--accent, var(--muted));
   letter-spacing: 0.4px;

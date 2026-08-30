@@ -31,17 +31,20 @@
   <main class="desktop">
     <header class="desktop__bar">
       <span class="desktop__host">niri@akemistico</span>
+      <nav class="menu" aria-label="Tópicos">
+        <a href="#quem-eu-sou">Quem Eu Sou</a>
+        <a href="#o-que-eu-faco">O Que Eu Faço</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#contato">Contato</a>
+      </nav>
       <span class="desktop__clock" id="clock">--:--</span>
     </header>
 
     <section class="grid" aria-label="Janelas do portfolio">
 
       <!-- 1. Quem eu sou -->
-      <article class="window window--green" data-accent="green" tabindex="0">
+      <article class="window window--green" id="quem-eu-sou" data-accent="green" tabindex="0">
         <header class="window__bar">
-          <span class="dot dot--close"></span>
-          <span class="dot dot--min"></span>
-          <span class="dot dot--max"></span>
           <span class="window__title">~ quem-eu-sou</span>
         </header>
         <div class="window__body">
@@ -55,11 +58,8 @@
       </article>
 
       <!-- 2. O que eu faço -->
-      <article class="window window--peach" data-accent="peach" tabindex="0">
+      <article class="window window--peach" id="o-que-eu-faco" data-accent="peach" tabindex="0">
         <header class="window__bar">
-          <span class="dot dot--close"></span>
-          <span class="dot dot--min"></span>
-          <span class="dot dot--max"></span>
           <span class="window__title">~ o-que-eu-faco</span>
         </header>
         <div class="window__body">
@@ -82,11 +82,8 @@
       </article>
 
       <!-- 3. Projetos -->
-      <article class="window window--pink" data-accent="pink" tabindex="0">
+      <article class="window window--pink" id="projetos" data-accent="pink" tabindex="0">
         <header class="window__bar">
-          <span class="dot dot--close"></span>
-          <span class="dot dot--min"></span>
-          <span class="dot dot--max"></span>
           <span class="window__title">~ projetos</span>
         </header>
         <div class="window__body">
@@ -100,11 +97,8 @@
       </article>
 
       <!-- 4. Contato -->
-      <article class="window window--purple" data-accent="purple" tabindex="0">
+      <article class="window window--purple" id="contato" data-accent="purple" tabindex="0">
         <header class="window__bar">
-          <span class="dot dot--close"></span>
-          <span class="dot dot--min"></span>
-          <span class="dot dot--max"></span>
           <span class="window__title">~ contato</span>
         </header>
         <div class="window__body">
