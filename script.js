@@ -1,36 +1,53 @@
 // ============================================================
 // Portfolio — Akemistico
-// Relógio + animação de entrada em stagger + typewriter
+// Relógio, entrada em stagger, navegação por bordas e ociosidade
 // ============================================================
 
 (function () {
   "use strict";
 
-  // Relógio no topo
+  const EDGE = 12; // px que disparam o retorno ao menu (laterais)
+  const GLOW = 110; // px que acionam o brilho lateral
+  const BOTTOM_ENTER = 60; // px da base que abrem o terminal
+  const BOTTOM_GLOW = 140; // px da base que acionam o brilho inferior
+  const IDLE_DELAY = 3000; // ms sem interação para suavizar a intro
+
+  const windows = Array.from(document.querySelectorAll(".window"));
+  const intro = document.getElementById("intro");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // --- Relógio --------------------------------------------------
+
   const clock = document.getElementById("clock");
+
+  /** Formata um número inteiro para dois dígitos (ex.: 5 → "05"). */
+  const pad = (n) => String(n).padStart(2, "0");
+
+  /** Atualiza o relógio do topo com o horário atual. */
   function tick() {
     const now = new Date();
-    const pad = (n) => String(n).padStart(2, "0");
     clock.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
   }
+
   if (clock) {
     tick();
     setInterval(tick, 1000);
   }
 
-  // Menu superior: destaca a janela alvo ao passar o mouse
+  // --- Menu superior: destaque por hover -------------------------
+
   document.querySelectorAll(".menu a").forEach((link) => {
-    const target = document.querySelector(link.getAttribute("href"));
+    const href = link.getAttribute("href");
+    if (!href) return;
+    const target = document.querySelector(href);
     if (!target) return;
     link.addEventListener("mouseenter", () => target.classList.add("window--flash"));
     link.addEventListener("mouseleave", () => target.classList.remove("window--flash"));
   });
 
-  // Animação de entrada em stagger
-  const windows = Array.from(document.querySelectorAll(".window"));
-  const intro = document.getElementById("intro");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // --- Entrada das janelas ---------------------------------------
 
+  /** Remove o estado de "entrada" para permitir reanimar a cada abertura. */
   function resetWindows() {
     windows.forEach((w) => {
       w.classList.remove("is-in");
@@ -38,37 +55,36 @@
     });
   }
 
+  /** Revela as janelas com stagger (ou imediatamente, se reduzir movimento). */
   function revealWindows() {
     resetWindows();
     if (reduceMotion) {
       windows.forEach((w) => w.classList.add("is-in"));
       return;
     }
-    const io = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = windows.indexOf(entry.target) * 120;
-            entry.target.style.animationDelay = `${delay}ms`;
-            entry.target.classList.add("is-in");
-            io.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+          const delay = windows.indexOf(entry.target) * 120;
+          entry.target.style.animationDelay = `${delay}ms`;
+          entry.target.classList.add("is-in");
+          observer.unobserve(entry.target);
         });
       },
       { threshold: 0.15 }
     );
-    windows.forEach((w) => io.observe(w));
+    windows.forEach((w) => observer.observe(w));
   }
+
+  // --- Navegação da intro (entrar / voltar) ----------------------
 
   if (intro) {
     let entered = false;
     let armed = false;
     let inSideGlow = false;
-    const EDGE = 12;           // px que disparam o retorno ao menu (laterais)
-    const GLOW = 110;          // px que acionam o brilho lateral
-    const BOTTOM_ENTER = 60;   // px da base que abrem o terminal
-    const BOTTOM_GLOW = 140;   // px da base que acionam o brilho inferior
 
+    /** Abre os terminais, escondendo a intro. */
     const enter = () => {
       if (entered) return;
       intro.classList.add("is-hidden");
@@ -79,6 +95,7 @@
       revealWindows();
     };
 
+    /** Volta ao menu inicial, recolhendo as janelas. */
     const backToMenu = () => {
       if (!entered) return;
       intro.classList.remove("is-hidden");
@@ -97,7 +114,11 @@
       }
     });
 
-    // Lógica de borda compartilhada entre mouse e toque
+    /**
+     * Trata a posição do ponteiro (mouse ou toque) para abrir/voltar.
+     * @param {number} x - coordenada horizontal em px.
+     * @param {number} y - coordenada vertical em px.
+     */
     function handlePointer(x, y) {
       const nearLeft = x <= GLOW;
       const nearRight = x >= window.innerWidth - GLOW;
@@ -109,13 +130,13 @@
       document.body.classList.toggle("near-right", entered && nearRight);
       document.body.classList.toggle("near-bottom", !entered && nearBottom);
 
-      // Deslizar/tocar na base da tela abre o terminal
+      // Deslizar/tocar na base da tela abre o terminal.
       if (!entered) {
         if (y >= window.innerHeight - BOTTOM_ENTER) enter();
         return;
       }
 
-      // Ao mover o cursor até uma das laterais, volta ao menu inicial
+      // Ao mover o cursor até uma das laterais, volta ao menu.
       const atEdge = x <= EDGE || x >= window.innerWidth - EDGE;
       if (atEdge) {
         if (armed) backToMenu();
@@ -127,7 +148,7 @@
     window.addEventListener("pointermove", (e) => handlePointer(e.clientX, e.clientY));
     window.addEventListener("pointerdown", (e) => handlePointer(e.clientX, e.clientY));
 
-    // Clique/toque na região de brilho lateral também volta ao menu
+    // Clique/toque na região de brilho lateral também volta ao menu.
     window.addEventListener("click", () => {
       if (entered && inSideGlow) backToMenu();
     });
@@ -135,16 +156,17 @@
     revealWindows();
   }
 
-  // Timer de ociosidade: após 3s sem interação, suaviza a intro
-  const IDLE_DELAY = 3000;
+  // --- Ociosidade ------------------------------------------------
+
   let idleTimer = null;
+
+  /** Reinicia o contador de ociosidade; suaviza a intro após IDLE_DELAY. */
   function resetIdle() {
-    if (intro) intro.classList.remove("is-idle");
+    intro?.classList.remove("is-idle");
     clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => {
-      if (intro) intro.classList.add("is-idle");
-    }, IDLE_DELAY);
+    idleTimer = setTimeout(() => intro?.classList.add("is-idle"), IDLE_DELAY);
   }
+
   ["pointermove", "pointerdown", "keydown", "touchmove", "wheel"].forEach((evt) =>
     window.addEventListener(evt, resetIdle, { passive: true })
   );
