@@ -68,11 +68,11 @@ body {
   background: url("bg.jpeg") center/cover no-repeat;
 }
 .intro::before {
-  filter: url(#wave-light) blur(3px) brightness(0.96);
+  filter: url(#wave-light) blur(3px) brightness(0.8);
   z-index: -2;
 }
 .intro::after {
-  filter: url(#wave-light) brightness(1);
+  filter: url(#wave-light) brightness(0.8);
   z-index: -1;
   opacity: 0;
   transition: opacity 1.8s ease-in-out;
