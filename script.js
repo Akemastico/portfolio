@@ -31,7 +31,15 @@
   const intro = document.getElementById("intro");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function resetWindows() {
+    windows.forEach((w) => {
+      w.classList.remove("is-in");
+      w.style.animationDelay = "";
+    });
+  }
+
   function revealWindows() {
+    resetWindows();
     if (reduceMotion) {
       windows.forEach((w) => w.classList.add("is-in"));
       return;
@@ -78,6 +86,7 @@
       entered = false;
       armed = false;
       inSideGlow = false;
+      resetWindows();
     };
 
     intro.addEventListener("click", enter);
