@@ -59,6 +59,7 @@
   if (intro) {
     let entered = false;
     let armed = false;
+    let inSideGlow = false;
     const EDGE = 12;           // px que disparam o retorno ao menu (laterais)
     const GLOW = 110;          // px que acionam o brilho lateral
     const BOTTOM_ENTER = 60;   // px da base que abrem o terminal
@@ -70,6 +71,7 @@
       document.body.classList.remove("near-bottom");
       entered = true;
       armed = false;
+      inSideGlow = false;
       revealWindows();
     };
 
@@ -79,6 +81,7 @@
       document.body.classList.remove("near-left", "near-right");
       entered = false;
       armed = false;
+      inSideGlow = false;
     };
 
     intro.addEventListener("click", enter);
@@ -93,6 +96,8 @@
       const nearLeft = e.clientX <= GLOW;
       const nearRight = e.clientX >= window.innerWidth - GLOW;
       const nearBottom = e.clientY >= window.innerHeight - BOTTOM_GLOW;
+
+      inSideGlow = entered && (nearLeft || nearRight);
 
       document.body.classList.toggle("near-left", entered && nearLeft);
       document.body.classList.toggle("near-right", entered && nearRight);
@@ -112,6 +117,11 @@
       } else {
         armed = true;
       }
+    });
+
+    // Clique na região de brilho lateral também volta ao menu
+    window.addEventListener("click", () => {
+      if (entered && inSideGlow) backToMenu();
     });
   } else {
     revealWindows();
