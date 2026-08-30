@@ -296,7 +296,7 @@ body.near-bottom .edge--bottom {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
   overflow: hidden;
   scroll-margin-top: 90px;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, opacity 0.4s ease;
 }
 
 .window:hover,
