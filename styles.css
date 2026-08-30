@@ -65,12 +65,12 @@ body {
   position: absolute;
   inset: -40px;
   background: url("bg.jpeg") center/cover no-repeat;
-  filter: blur(3px) brightness(0.96);
+  filter: url(#wave-light) blur(3px) brightness(0.96);
   z-index: -1;
   transition: filter 1.8s ease-in-out;
 }
 .intro.is-idle::before {
-  filter: blur(0px) brightness(1);
+  filter: url(#wave-light) blur(0px) brightness(1);
 }
 .intro.is-hidden {
   opacity: 0;
