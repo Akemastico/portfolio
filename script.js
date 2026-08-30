@@ -97,10 +97,11 @@
       }
     });
 
-    window.addEventListener("mousemove", (e) => {
-      const nearLeft = e.clientX <= GLOW;
-      const nearRight = e.clientX >= window.innerWidth - GLOW;
-      const nearBottom = e.clientY >= window.innerHeight - BOTTOM_GLOW;
+    // Lógica de borda compartilhada entre mouse e toque
+    function handlePointer(x, y) {
+      const nearLeft = x <= GLOW;
+      const nearRight = x >= window.innerWidth - GLOW;
+      const nearBottom = y >= window.innerHeight - BOTTOM_GLOW;
 
       inSideGlow = entered && (nearLeft || nearRight);
 
@@ -108,23 +109,25 @@
       document.body.classList.toggle("near-right", entered && nearRight);
       document.body.classList.toggle("near-bottom", !entered && nearBottom);
 
-      // Deslizar na base da tela abre o terminal
+      // Deslizar/tocar na base da tela abre o terminal
       if (!entered) {
-        if (e.clientY >= window.innerHeight - BOTTOM_ENTER) enter();
+        if (y >= window.innerHeight - BOTTOM_ENTER) enter();
         return;
       }
 
-      // Ao mover o mouse até uma das laterais, volta ao menu inicial
-      const atEdge =
-        e.clientX <= EDGE || e.clientX >= window.innerWidth - EDGE;
+      // Ao mover o cursor até uma das laterais, volta ao menu inicial
+      const atEdge = x <= EDGE || x >= window.innerWidth - EDGE;
       if (atEdge) {
         if (armed) backToMenu();
       } else {
         armed = true;
       }
-    });
+    }
 
-    // Clique na região de brilho lateral também volta ao menu
+    window.addEventListener("pointermove", (e) => handlePointer(e.clientX, e.clientY));
+    window.addEventListener("pointerdown", (e) => handlePointer(e.clientX, e.clientY));
+
+    // Clique/toque na região de brilho lateral também volta ao menu
     window.addEventListener("click", () => {
       if (entered && inSideGlow) backToMenu();
     });
@@ -142,7 +145,7 @@
       if (intro) intro.classList.add("is-idle");
     }, IDLE_DELAY);
   }
-  ["mousemove", "mousedown", "keydown", "touchstart", "wheel"].forEach((evt) =>
+  ["pointermove", "pointerdown", "keydown", "touchmove", "wheel"].forEach((evt) =>
     window.addEventListener(evt, resetIdle, { passive: true })
   );
   resetIdle();
