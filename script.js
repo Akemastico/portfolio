@@ -18,16 +18,12 @@
     setInterval(tick, 1000);
   }
 
-  // Menu superior: destaca a janela alvo ao clicar
+  // Menu superior: destaca a janela alvo ao passar o mouse
   document.querySelectorAll(".menu a").forEach((link) => {
-    link.addEventListener("click", () => {
-      const target = document.querySelector(link.getAttribute("href"));
-      if (!target) return;
-      target.classList.remove("window--flash");
-      void target.offsetWidth; // reflow para reiniciar a transição
-      target.classList.add("window--flash");
-      window.setTimeout(() => target.classList.remove("window--flash"), 800);
-    });
+    const target = document.querySelector(link.getAttribute("href"));
+    if (!target) return;
+    link.addEventListener("mouseenter", () => target.classList.add("window--flash"));
+    link.addEventListener("mouseleave", () => target.classList.remove("window--flash"));
   });
 
   // Animação de entrada em stagger
